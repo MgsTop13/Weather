@@ -1,3 +1,7 @@
+let hours = document.getElementById("h");
+let minutes = document.getElementById("m");
+let seconds = document.getElementById("s");
+let today = document.getElementById("t");
 
 function VerfT(t){
     if(t === 0){
@@ -20,7 +24,7 @@ function VerfT(t){
 
 function date(){
    const d = new Date();
-   let h = d.getHours() - 3;
+   let h = d.getHours();
    let m = d.getMinutes();
    let s = d.getSeconds();
    let t = d.getUTCDay();
@@ -38,11 +42,15 @@ function date(){
    }
    t = VerfT(t);
    
-   console.log(`${h}:${m}:${s}`);
-   console.log(`Today: ${t}`)
+   hours.textContent = `${h}`;
+   minutes.textContent = `${m}`;
+   seconds.textContent = s;
+   today.textContent = t
+   //console.log(`${h}:${m}:${s}`);
+   //console.log(`Today: ${t}`)
 }
 
 setInterval(() => {
-    console.clear();
+    //console.clear();
     date();
 }, 1000)
