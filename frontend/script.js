@@ -1,7 +1,25 @@
+import { api_key } from "./config.js";
+
 let hours = document.getElementById("h");
 let minutes = document.getElementById("m");
 let seconds = document.getElementById("s");
 let today = document.getElementById("t");
+let weather = document.getElementById("w");
+
+
+async function getWeatherInfo() {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=-23.8464003&lon=-46.7388715&appid=${api_key}`;
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    const max = data.main.temp - 273.15.toFixed(1);
+    weather.innerText = `${max}º`
+    
+    console.log(data);
+}
+
+getWeatherInfo();
+
 
 function VerfT(t){
     if(t === 0){
@@ -46,11 +64,8 @@ function date(){
    minutes.textContent = `${m}`;
    seconds.textContent = s;
    today.textContent = t
-   //console.log(`${h}:${m}:${s}`);
-   //console.log(`Today: ${t}`)
 }
 
 setInterval(() => {
-    //console.clear();
     date();
 }, 1000)
