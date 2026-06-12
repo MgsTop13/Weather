@@ -1,25 +1,19 @@
-const url = new URL('/weather', 'https://api.hgbrasil.com');
-url.searchParams.set("key", "");
-const response = await fetch(url.href);
-const data = await response.json();
+import { api_key } from "../config.js";
+
+const url = `https://api.openweathermap.org/data/2.5/weather?lat=-23.8464003&lon=-46.7388715&appid=${api_key}`;
+
+async function getWeatherInfo(){
+    const response = await fetch(url);
+    const data = await response.json();
+    let max = data.main.temp - 273.15;
+    max = max.toFixed(1);
+    return max;
+}
 
 
-function VerfT(t){
-    if(t === 0){
-        return "Sunday";
-    } else if(t === 1){
-        return "Monday";
-    } else if(t === 2){
-        return "Tuesday";
-    } else if(t === 3){
-        return "Wednesday";
-    } else if(t === 4){
-        return "Thursday";
-    } else if(t === 5){
-        return "Friday";
-    } else if(t === 6){
-        return "Saturday";
-    }
+function ReturnDate(t){
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return days[t];
 }
 
 
@@ -41,15 +35,26 @@ function date(){
    if(s < 10){
        s = `0${s}`
    }
-   t = VerfT(t);
-   
-   console.log("------------------------");
-   console.log(`|        ${h}:${m}:${s}      |`);
-   console.log(`| Today: ${t}       |`);
-   console.log("------------------------");
+
+   t = ReturnDate(t);
+
+   let time = [`${h}:${m}:${s}`, t]
+   return time;
 }
+
+async function time(){
+    let weather = await getWeatherInfo();
+    let a = date();
+
+
+    console.log("------------------------");
+    console.log(` ${a[0]}`);
+    console.log(` ${a[1]}    ${weather}º`);
+    console.log("------------------------");
+}
+
 
 setInterval(() => {
     console.clear();
-    date();
+    time();
 }, 1000)

@@ -1,4 +1,4 @@
-import { api_key } from "./config.js";
+import { api_key } from "../config.js";
 
 let hours = document.getElementById("h");
 let minutes = document.getElementById("m");
