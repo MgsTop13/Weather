@@ -12,10 +12,9 @@ async function getWeatherInfo() {
     
     const response = await fetch(url);
     const data = await response.json();
-    const max = data.main.temp - 273.15.toFixed(1);
+    let max = data.main.temp - 273.15;
+    max = max.toFixed(1);
     weather.innerText = `${max}º`
-    
-    console.log(data);
 }
 
 getWeatherInfo();

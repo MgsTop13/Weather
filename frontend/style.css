@@ -46,16 +46,26 @@ h1, h2{
     transition: 150ms;
 }
 
-.today{
+.todayClass{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.today, .weather{
     font-size: 1.4rem;
 }
 
 @media (max-width: 320px) {
+    .todayClass{
+        margin-top: 1%;
+    }
+
     h1, h2{
         font-size: 1.3rem;
     }
 
-    .today{
+    .today, .weather{
         font-size: 1.1rem
     }
 }
@@ -65,7 +75,7 @@ h1, h2{
         font-size: 1.1rem;
     }
 
-    .today{
+    .today, .weather{
         font-size: 0.9rem
     }
 }
@@ -75,7 +85,7 @@ h1, h2{
         font-size: 0.8rem;
     }
 
-    .today{
+    .today, .weather{
         font-size: 0.6rem;
     }
 }
