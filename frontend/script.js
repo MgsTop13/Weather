@@ -1,5 +1,3 @@
-import { api_key } from "../config.js";
-
 let hours = document.getElementById("h");
 let minutes = document.getElementById("m");
 let seconds = document.getElementById("s");
@@ -8,7 +6,11 @@ let weather = document.getElementById("w");
 
 
 async function getWeatherInfo() {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=-23.8464003&lon=-46.7388715&appid=${api_key}`;
+    const coordLat = "-23.8464003"; //Latitude do lugar desejado
+    const coordLon = "-46.7388715"; //Longitude do lugar desejado
+    const api_key = "SuaApiKey";
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}`;
     
     const response = await fetch(url);
     const data = await response.json();

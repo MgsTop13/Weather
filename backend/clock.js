@@ -1,6 +1,9 @@
-import { api_key } from "../config.js";
+const coordLat = "-23.8464003"; //Latitude do lugar desejado
+const coordLon = "-46.7388715"; //Longitude do lugar desejado
+const api_key = "SuaApiKey";
 
-const url = `https://api.openweathermap.org/data/2.5/weather?lat=-23.8464003&lon=-46.7388715&appid=${api_key}`;
+const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}`;
+
 
 async function getWeatherInfo(){
     const response = await fetch(url);
@@ -38,7 +41,7 @@ function date(){
 
    t = ReturnDate(t);
 
-   let time = [`${h}:${m}:${s}`, t]
+   let time = [`22:${m}:${s}`, t]
    return time;
 }
 
