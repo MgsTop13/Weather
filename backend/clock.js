@@ -41,7 +41,7 @@ function date(){
 
    t = ReturnDate(t);
 
-   let time = [`22:${m}:${s}`, t]
+   let time = [`${h}:${m}:${s}`, t]
    return time;
 }
 
