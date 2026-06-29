@@ -1,14 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 import { Colors } from './constants/colors';
 import { useColorScheme } from "react-native";
-import { SpacerComponent } from './components/spacer';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Picker } from '@react-native-picker/picker';
+import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid"
 
 function VerfT(t) {
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   return days[t];
+}
+
+const cities = [ 
+  { name: "Embu Guaçu", lat: "-23.8464003", lon: "-46.7388715"},
+  { name: "Taboão da Serra", lat: "-23.6452664", lon: "-46.7953603"},
+  { name: "Itapecirica da Serra", lat: "-23.678347035312203", lon: "-46.820014951508064"},
+]
+
+function getImg(text){
+  switch(text){
+    case "clear sky":
+      return <FontAwesomeFreeSolid name='' />
+  }
 }
 
 export default function App() {
@@ -18,10 +32,14 @@ export default function App() {
   const [hours, setHours] = useState("00");
   const [min, setMin] = useState("00");
   const [sec, setSec] = useState(0);
-  const [degress, setDegress] = useState(0);
   const [today, setToday] = useState('');
+  
+  const [degress, setDegress] = useState(0);
   const [city, setCity] = useState('');
   const [infoWeather, setInfoWeather] = useState("");
+   
+  const [selectCity, setSelectCity] = useState("Embu Guaçu");
+
 
 
   function getDay() {
@@ -34,26 +52,29 @@ export default function App() {
   }
 
 
-async function getWeatherInfo() {
-  const coordLat = "-23.8464003"; //Latitude do lugar desejado
-  const coordLon = "-46.7388715"; //Longitude do lugar desejado
-  const api_key = "SuaApiKey";
+  async function getWeatherInfo() {
+    let findCity = cities.find(cityName => cityName.name === selectCity);
+    let coordLat = findCity.lat; //Latitude do lugar desejado
+    let coordLon = findCity.lon; //Longitude do lugar desejado
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}&units=metric`;
+    const api_key = "VaiPegarATuaRapax!!";
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}&units=metric`;
 
-  const response = await axios.get(url);
-  let degress2 = response.data.main.temp;
-  setDegress(degress2.toFixed(1));
-  setCity(response.data.name);
-  setInfoWeather(response.data.weather[0].description);
-}
+    try {
+      const response = await axios.get(url);
+      let degress2 = response.data.main.temp;
+      setDegress(degress2.toFixed(1));
+      setCity(response.data.name);
+      setInfoWeather(response.data.weather[0].description);
+
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
   useEffect(() => {
-    const interval = setInterval(() => {
-      getWeatherInfo();
-    }, 10000)
-
-    return () => clearInterval(interval);
-  }, [])
+    getWeatherInfo();
+  }, [selectCity]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -64,11 +85,13 @@ async function getWeatherInfo() {
   }, []);
 
 
+
   return (
     <View style={[{ backgroundColor: mode.bg }, styles.container]}>
       <View style={styles.clock}>
 
-          <Text style={[{ color: mode.text }, styles.text2]}>{today}</Text>
+        <Text style={[{ color: mode.text }, styles.text2]}>{today}</Text>
+
         <View style={styles.time}>
           <Text style={[{ color: mode.text }, styles.text]}>{hours}</Text>
           <Text style={[{ color: mode.text }, styles.text]}>:</Text>
@@ -77,13 +100,26 @@ async function getWeatherInfo() {
           <Text style={[{ color: mode.text }, styles.text]}>{sec}</Text>
         </View>
 
-          <View style={styles.separe}>
+
+        <Picker
+          selectedValue={selectCity}
+          onValueChange={(itemValue) => { setSelectCity(itemValue) }}
+          style={styles.select}
+        >
+          <Picker.Item label="Embu Guaçu" value="Embu Guaçu"/>
+          <Picker.Item label="Taboão da Serra" value="Taboão da Serra" />
+          <Picker.Item label="Itapecirica da Serra" value="Itapecirica da Serra" />
+
+        </Picker>
+
+        <View style={styles.separe}>
           <Text style={[{ color: mode.text }, styles.text3]}>{degress}°C</Text>
-          <Text style={[{ color: mode.text}, styles.text3]}>{city}</Text>
-          <Text style={[{color: mode.text}, styles.text3]}>{infoWeather}</Text>
-          </View>
+          <Text style={[{ color: mode.text }, styles.text3]}>{city}</Text>
+          <Text style={[{ color: mode.text }, styles.text3]}>{infoWeather}</Text>
+        </View>
 
       </View>
+        
       <StatusBar style="auto" />
     </View>
   );
@@ -96,60 +132,60 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  
+
   clock: {
     position: "relative",
     backgroundColor: "#141414",
     display: "flex",
 
+    alignItems: "center",
     justifyContent: "space-around",
     width: "85%",
     height: 220,
     borderRadius: 24,
-    padding: 24,
+    padding: 12,
     elevation: 8
   },
 
+  select: {
+    width: "70%",
+    backgroundColor: "#2e2e2e",
+    border: "none",
+    height: 30,
+    color: "#e1e1e1"
+  },
+
   separe: {
-    display: "flex", 
+    display: "flex",
     flexDirection: "row",
+    width: "100%",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 20
+    justifyContent: "space-around",
   },
 
   time: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    gap: 8,
   },
 
   text: {
-    fontWeight: 900,
-    fontSize: "1.6rem",
+    fontWeight: "900",
+    fontSize: 28,
     textAlign: "center",
+    marginHorizontal: 5,
   },
-
+  
   text2: {
-    fontWeight: 900,
+    fontWeight: "900",
     paddingLeft: 20,
-    fontSize: "1.5rem",
-    width: "50%",
+    fontSize: 25,
+    width: "100%",
   },
 
   text3: {
-    width: "50%",
-    textAlign: "center",
-    fontSize: "1rem",
-    fontWeight: 900
+    fontSize: 14,
+    fontWeight: "900"
   },
-  
 
-  text4: {
-    width: "100%",
-    textAlign: "center",
-    fontSize: "1.2rem",
-    fontWeight: 900
-  }
 });

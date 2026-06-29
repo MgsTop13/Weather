@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Weather App",
+    "slug": "weather",
+    "version": "1.2",
+    "orientation": "portrait",
+    "icon": "./assets/weatherIcon2.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/weatherIcon2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/weatherIcon2.png",
+        "backgroundColor": "#2e2e2e"
+      },
+      "package": "com.mgstop13.weather"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9c28df32-fce4-45c3-bb8f-f9bf4954d14d"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.mgstop13.weather"
+    }
+  }
+}
