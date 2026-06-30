@@ -18,10 +18,41 @@ const cities = [
   { name: "Itapecirica da Serra", lat: "-23.678347035312203", lon: "-46.820014951508064"},
 ]
 
-function getImg(text){
+function getImg(text, time){
   switch(text){
-    case "clear sky":
-      return <FontAwesomeFreeSolid name='' />
+    default:
+      return <FontAwesomeFreeSolid name='sun' color="orange" />;
+
+    case "Clear":
+      if(time < 18){
+        return <FontAwesomeFreeSolid name='sun' color="orange" />;
+      } else {
+        return <FontAwesomeFreeSolid name='moon' color="gray" />;
+      }
+
+    case "Clouds":
+      return <FontAwesomeFreeSolid name='cloud' color="white"/>;
+    
+    case "Rain":
+      return <FontAwesomeFreeSolid name='cloud-rain' color="gray" />;
+    
+    case "Drizzle":
+      return <FontAwesomeFreeSolid name='cloud-rain' color="gray"/>;
+
+    case "Thunderstorm":
+      return <FontAwesomeFreeSolid name='thunderstorm' color="gray"/>;
+
+    case "Smoke":
+      return <FontAwesomeFreeSolid name='smoking' color="white" />;
+
+    case "Haze":
+      return <FontAwesomeFreeSolid name='smog' color="gray" />;
+
+    case "Fog":
+      return <FontAwesomeFreeSolid name='cloud' color="gray" />;
+
+    case "Squall":
+      return <FontAwesomeFreeSolid name='wind' color='gray' />;
   }
 }
 
@@ -37,6 +68,7 @@ export default function App() {
   const [degress, setDegress] = useState(0);
   const [city, setCity] = useState('');
   const [infoWeather, setInfoWeather] = useState("");
+  const [main, setMain] = useState("");
    
   const [selectCity, setSelectCity] = useState("Embu Guaçu");
 
@@ -57,7 +89,7 @@ export default function App() {
     let coordLat = findCity.lat; //Latitude do lugar desejado
     let coordLon = findCity.lon; //Longitude do lugar desejado
 
-    const api_key = "VaiPegarATuaRapax!!";
+    const api_key = "VAI PEGAR A TUA RAPAX";
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}&units=metric`;
 
     try {
@@ -66,7 +98,7 @@ export default function App() {
       setDegress(degress2.toFixed(1));
       setCity(response.data.name);
       setInfoWeather(response.data.weather[0].description);
-
+      setMain(response.data.weather[0].main)
     } catch (error) {
       console.error(error)
     }
@@ -116,6 +148,7 @@ export default function App() {
           <Text style={[{ color: mode.text }, styles.text3]}>{degress}°C</Text>
           <Text style={[{ color: mode.text }, styles.text3]}>{city}</Text>
           <Text style={[{ color: mode.text }, styles.text3]}>{infoWeather}</Text>
+          {getImg(main, Number(hours))}
         </View>
 
       </View>
@@ -152,7 +185,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#2e2e2e",
     border: "none",
     height: 30,
-    color: "#e1e1e1"
+    color: "#e1e1e1",
+    borderRadius: 12,
+    paddingLeft: 15
   },
 
   separe: {
