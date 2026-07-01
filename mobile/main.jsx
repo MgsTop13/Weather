@@ -5,7 +5,7 @@ import { useColorScheme } from "react-native";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Picker } from '@react-native-picker/picker';
-import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid"
+import { FontAwesome5 } from '@expo/vector-icons';
 
 function VerfT(t) {
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -18,41 +18,33 @@ const cities = [
   { name: "Itapecirica da Serra", lat: "-23.678347035312203", lon: "-46.820014951508064"},
 ]
 
-function getImg(text, time){
-  switch(text){
-    default:
-      return <FontAwesomeFreeSolid name='sun' color="orange" />;
-
+function getImg(text, time) {
+  switch (text) {
     case "Clear":
-      if(time < 18){
-        return <FontAwesomeFreeSolid name='sun' color="orange" />;
-      } else {
-        return <FontAwesomeFreeSolid name='moon' color="gray" />;
-      }
+      return time < 18
+        ? <FontAwesome5 name="sun" size={20} color="orange" />
+        : <FontAwesome5 name="moon" size={20} color="gray" />;
 
     case "Clouds":
-      return <FontAwesomeFreeSolid name='cloud' color="white"/>;
-    
+      return <FontAwesome5 name="cloud" size={20} color="white" />;
+
     case "Rain":
-      return <FontAwesomeFreeSolid name='cloud-rain' color="gray" />;
-    
     case "Drizzle":
-      return <FontAwesomeFreeSolid name='cloud-rain' color="gray"/>;
+      return <FontAwesome5 name="cloud-rain" size={20} color="gray" />;
 
     case "Thunderstorm":
-      return <FontAwesomeFreeSolid name='thunderstorm' color="gray"/>;
+      return <FontAwesome5 name="bolt" size={20} color="yellow" />;
 
     case "Smoke":
-      return <FontAwesomeFreeSolid name='smoking' color="white" />;
-
     case "Haze":
-      return <FontAwesomeFreeSolid name='smog' color="gray" />;
-
     case "Fog":
-      return <FontAwesomeFreeSolid name='cloud' color="gray" />;
+      return <FontAwesome5 name="smog" size={20} color="gray" />;
 
     case "Squall":
-      return <FontAwesomeFreeSolid name='wind' color='gray' />;
+      return <FontAwesome5 name="wind" size={20} color="gray" />;
+
+    default:
+      return <FontAwesome5 name="sun" size={20} color="orange" />;
   }
 }
 
@@ -89,7 +81,7 @@ export default function App() {
     let coordLat = findCity.lat; //Latitude do lugar desejado
     let coordLon = findCity.lon; //Longitude do lugar desejado
 
-    const api_key = "VAI PEGAR A TUA RAPAX";
+    const api_key = "VAIPEGARATUA";
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}&units=metric`;
 
     try {
@@ -183,7 +175,6 @@ const styles = StyleSheet.create({
   select: {
     width: "70%",
     backgroundColor: "#2e2e2e",
-    border: "none",
     height: 30,
     color: "#e1e1e1",
     borderRadius: 12,

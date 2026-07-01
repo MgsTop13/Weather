@@ -6,25 +6,25 @@
     "orientation": "portrait",
     "icon": "./assets/weatherIcon2.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/weatherIcon2.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mgstop13.weather"
     },
     "android": {
+      "package": "com.mgstop13.weather",
+      "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/weatherIcon2.png",
-        "backgroundColor": "#2e2e2e"
-      },
-      "package": "com.mgstop13.weather"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "9c28df32-fce4-45c3-bb8f-f9bf4954d14d"
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
       }
     },
-    "ios": {
-      "bundleIdentifier": "com.mgstop13.weather"
-    }
+    "web": {
+      "favicon": "./assets/weatherIcon2.png"
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

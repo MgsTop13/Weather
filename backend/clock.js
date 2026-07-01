@@ -2,14 +2,13 @@ const coordLat = "-23.8464003"; //Latitude do lugar desejado
 const coordLon = "-46.7388715"; //Longitude do lugar desejado
 const api_key = "SuaApiKey";
 
-const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}`;
+const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}&units=metric`;
 
 
 async function getWeatherInfo(){
     const response = await fetch(url);
     const data = await response.json();
-    let max = data.main.temp - 273.15;
-    max = max.toFixed(1);
+    let max = data.main.temp.toFixed(1);
     return max;
 }
 
