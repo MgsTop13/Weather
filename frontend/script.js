@@ -8,7 +8,7 @@ let weather = document.getElementById("w");
 async function getWeatherInfo() {
     const coordLat = "-23.8464003"; //Latitude do lugar desejado
     const coordLon = "-46.7388715"; //Longitude do lugar desejado
-    const api_key = "SuaApiKey";
+    const api_key = "VAIPEGARATUA";
 
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coordLat}&lon=${coordLon}&appid=${api_key}`;
     

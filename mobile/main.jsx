@@ -65,7 +65,6 @@ export default function App() {
   const [selectCity, setSelectCity] = useState("Embu Guaçu");
 
 
-
   function getDay() {
     const date = new Date;
     setHours(String(date.getHours()).padStart(2, "0"));

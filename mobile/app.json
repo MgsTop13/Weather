@@ -2,9 +2,9 @@
   "expo": {
     "name": "Weather App",
     "slug": "weather",
-    "version": "1.2",
+    "version": "1.2.1",
     "orientation": "portrait",
-    "icon": "./assets/weatherIcon2.png",
+    "icon": "./assets/weatherIcon.png",
     "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true,
@@ -12,16 +12,14 @@
     },
     "android": {
       "package": "com.mgstop13.weather",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#2e2e2e",
+        "foregroundImage": "./assets/weatherIcon.png"
       }
     },
     "web": {
-      "favicon": "./assets/weatherIcon2.png"
+      "favicon": "./assets/weatherIcon.png"
     },
     "plugins": [
       "expo-font"
